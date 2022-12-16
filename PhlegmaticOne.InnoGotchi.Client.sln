@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{EE7A5BD1-0A01-43B0-A476-8FC652D07F94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{956ADB1B-E8D3-4B72-9701-126AA7700DCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhlegmaticOne.LocalStorage", "Infrastructure\PhlegmaticOne.LocalStorage\PhlegmaticOne.LocalStorage.csproj", "{F2F8004F-2753-432C-A952-C30563081D6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhlegmaticOne.InnoGotchi.Web", "Client\PhlegmaticOne.InnoGotchi.Web\PhlegmaticOne.InnoGotchi.Web.csproj", "{A2DC9DD1-A60A-4EAE-80D6-89D4AFD66CD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2F8004F-2753-432C-A952-C30563081D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2F8004F-2753-432C-A952-C30563081D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2F8004F-2753-432C-A952-C30563081D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2F8004F-2753-432C-A952-C30563081D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2DC9DD1-A60A-4EAE-80D6-89D4AFD66CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2DC9DD1-A60A-4EAE-80D6-89D4AFD66CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2DC9DD1-A60A-4EAE-80D6-89D4AFD66CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2DC9DD1-A60A-4EAE-80D6-89D4AFD66CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2F8004F-2753-432C-A952-C30563081D6B} = {956ADB1B-E8D3-4B72-9701-126AA7700DCC}
+		{A2DC9DD1-A60A-4EAE-80D6-89D4AFD66CD6} = {EE7A5BD1-0A01-43B0-A476-8FC652D07F94}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5E60540-064E-4305-A8FB-78A601C6D81D}
+	EndGlobalSection
+EndGlobal

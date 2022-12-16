@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - InnoGotchi</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/PhlegmaticOne.InnoGotchi.Web.styles.css" asp-append-version="true"/>
+    @await RenderSectionAsync("Styles", false)
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">InnoGotchi</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Constructor" asp-action="Create">Constructor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Farm" asp-action="My">My farm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Farm" asp-action="Collaborated">Collaborated farms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Overview" asp-action="My">Farms overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="InnoGotchies" asp-action="All">InnoGotchies</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <div class="me-2">
+                            <span class="text-white-50">@User.Identity.Name</span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" href="#"
+                                    id="navbarDropdownMenuLink"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                <img class="rounded-circle"
+                                     src="@Url.Action("Get", "Avatar")"
+                                     height="40"
+                                     asp-append-version="true"
+                                     alt="Avatar"/>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-controller="Profile" asp-action="Details">Details</a>
+                                <a class="dropdown-item" asp-controller="Profile" asp-action="Update">Settings</a>
+                                <a class="dropdown-item" asp-controller="Profile" asp-action="Logout">Logout</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-dark" onclick="location.href = '@Url.Action("Login", "Auth")'">
+                                Login
+                            </button>
+                            <button class="btn btn-dark" onclick="location.href = '@Url.Action("Register", "Auth")'">
+                                Register
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="footer text-muted">
+    <div class="container">
+        &copy; 2022 - PhlegmaticOne
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/layout.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>

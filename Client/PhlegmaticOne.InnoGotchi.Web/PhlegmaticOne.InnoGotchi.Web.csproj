@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Views\Constructor\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
+    <PackageReference Include="PhlegmaticOne.ApiRequesting" Version="1.0.0" />
+    <PackageReference Include="PhlegmaticOne.PagedLists" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\ViewComponents\Base\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\PhlegmaticOne.LocalStorage\PhlegmaticOne.LocalStorage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PhlegmaticOne.InnoGotchi.Shared">
+      <HintPath>bin\Release\net6.0\PhlegmaticOne.InnoGotchi.Shared.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

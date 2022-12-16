@@ -1,0 +1,129 @@
+﻿@model ConstructorViewModel
+
+@{
+    ViewData["Title"] = "Constructor";
+}
+
+<section>
+    <div class="container py-3 h-100">
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="btn-group mt-2" role="group">
+                        @foreach (var category in Model.ComponentCategories.Select((x, i) => new
+                        {
+                            x.CategoryName,
+                            Index = i
+                        }))
+                        {
+                            <button type="button" class="btn btn-outline-light category_button"
+                                    id="@category.CategoryName" orderInLayer="@category.Index">
+                                @category.CategoryName
+                            </button>
+                        }
+                    </div>
+                    
+                    <div class="col text-center text-white">
+                        <div class="mt-3" id="category_images_element"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 mt-2">
+                <div class="row justify-content-center">
+                    <div style="width: 420px; height: 620px">
+                        <svg class="drop-area" viewBox="0 0 420 620" style="background: wheat; position: relative;"
+                             width="420px"
+                             height="620px">
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row justify-content-center mb-3">
+            <div id="create_form">
+                @await Html.PartialAsync("~/Views/_Partial_Views/Constructor/CreateInnoGotchiArea.cshtml",
+                    new CreateInnoGotchiViewModel())
+            </div>
+            <div class="col-6 text-center mt-2">
+                <input type="submit" class="btn-lg btn-info" id="createNew" value="Create new"/>
+                <input type="submit" class="btn-lg btn-info" id="clear" value="Clear"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script src="~/js/constructor.js" asp-append-version="true"></script>
+
+    <script>
+        $(() => {
+            let categoryViewModels;
+
+            initialize();
+            getCategory(categoryViewModels[0], 0);
+
+            function initialize() {
+                categoryViewModels = @Json.Serialize(Model.ComponentCategories);
+
+                getCategoryButtons().forEach(b => {
+                    b.addEventListener("click",
+                        async (args) => {
+                            const category = categoryViewModels.find(e => e.categoryName === b.id);
+                            const orderInLayer = +b.getAttribute("orderinlayer");
+                            await getCategory(category, orderInLayer);
+                        });
+                });
+            }
+
+            async function getCategory(category, orderInLayer) {
+
+                const response = await window.fetch(`/Constructor/CategoryList?orderInLayer=${orderInLayer}`,
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-type': "application/json"
+                    },
+                    body: JSON.stringify(category)
+                });
+
+                if (response.ok) {
+                    const categoryImagesElement = document.getElementById("category_images_element");
+                    categoryImagesElement.innerHTML = await response.text();
+
+                    deselectAllButtons();
+                    selectButtonWithCategory(category.categoryName);
+                    setupDraggingElements();
+                }
+            }
+
+            function setupDraggingElements() {
+                const draggingItems = document.querySelectorAll(draggingElementClassName);
+
+                draggingItems.forEach(draggingItem => {
+                    draggingItem.addEventListener(dragStartEventName, dragStart);
+                });
+            }
+
+            function selectButtonWithCategory(category) {
+                document.getElementById(category).classList.add('active');
+            }
+
+            function deselectAllButtons() {
+                getCategoryButtons().forEach(b => b.classList.remove('active'));
+            }
+
+            function getCategoryButtons() {
+                return document.querySelectorAll(".category_button");
+            }
+        })
+    </script>
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/constructor.css" asp-append-version="true"/>
+}

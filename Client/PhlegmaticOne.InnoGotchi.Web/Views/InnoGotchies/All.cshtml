@@ -1,0 +1,78 @@
+﻿@model PhlegmaticOne.PagedLists.Implementation.PagedList<ReadonlyInnoGotchiPreviewViewModel>
+
+@{
+    ViewData["Title"] = "All pets";
+    var isAscending = (bool)ViewData["IsAscending"]!;
+    var sortType = (int)ViewData["SortType"]!;
+    var pageSize = (int)ViewData["PageSize"]!;
+    var sortDescriptions = new List<string>
+    {
+        "By happiness days count",
+        "By age",
+        "By hunger level",
+        "By thirsty level",
+        "By name",
+        "By owner farm name"
+    };
+}
+
+@if (Model.Items.Count == 0)
+{
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml", "Seems that nobody has even one InnoGotchi")
+}
+else
+{
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml", "All InnoGotchies")
+
+    <div class="container mb-4 mt-4">
+        <div class="row justify-content-center">
+            @await Html.PartialAsync("~/Views/_Partial_Views/InnoGotchies/InnoGotchiesSortMenu.cshtml", sortDescriptions, ViewData);
+        </div>
+    </div>
+
+    @await Html.PartialAsync("~/Views/_Partial_Views/InnoGotchies/ReadonlyInnoGotchiesCollection.cshtml", Model.Items)
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <pager asp-controller="InnoGotchies"
+                       asp-paged-list-page-index="@Model.PageIndex"
+                       asp-paged-list-page-size="@Model.PageSize"
+                       asp-paged-list-total-count="@Model.TotalCount"
+                       asp-paged-list-url="All"
+                       asp-route-data="@(new { sortType, pageSize, isAscending })"
+                       asp-route-parameter="pageIndex">
+                </pager>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/farm_details.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/pagination.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css"/>
+}
+
+@section Scripts
+{
+    <script>
+        $(() => {
+            var currentSortType = @sortType;
+            var isAscending = @(isAscending.ToString().ToLower());
+
+            const sortingLinks = document.querySelector('.btn-group').querySelectorAll('a');
+            const search = `sortType=${currentSortType}`;
+
+            const activeSortLink = Array.from(sortingLinks).filter(x => x.href.includes(search))[0];
+
+            if (isAscending === false) {
+                activeSortLink.innerHTML += `<i class="fa-solid fa-caret-down ms-1"></i>`;
+            } else {
+                activeSortLink.innerHTML += `<i class="fa-solid fa-caret-up ms-1"></i>`;
+            }
+        })
+    </script>
+}

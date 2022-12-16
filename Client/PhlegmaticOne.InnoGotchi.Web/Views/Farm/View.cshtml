@@ -1,0 +1,28 @@
+﻿@model DetailedFarmViewModel
+
+@{
+    ViewData["Title"] = "Farm view";
+}
+
+@if (Model.InnoGotchies.Count == 0)
+{
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml",
+        $"Looks like {Model.Email} doesn't have any InnoGotchies")
+}
+else
+{
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml", $"Farm - {Model.Name}")
+    <h4 class="h4 text-white-50">Owner - @(Model.FirstName) @(Model.LastName)</h4>
+    <h4 class="h4 text-white-50">Owner - @Model.Email</h4>
+    @await Html.PartialAsync("~/Views/_Partial_Views/InnoGotchies/InnoGotchiCardsList.cshtml", Model.InnoGotchies, ViewData)
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/farm_details.css" asp-append-version="true"/>
+}
+
+@section Scripts
+{
+    <script src="~/js/my_farm.js" asp-append-version="true"></script>
+}
