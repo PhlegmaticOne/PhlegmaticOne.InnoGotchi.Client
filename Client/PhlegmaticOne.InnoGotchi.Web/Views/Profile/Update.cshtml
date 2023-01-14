@@ -1,0 +1,110 @@
+﻿@model UpdateAccountViewModel
+@{
+    ViewData["Title"] = "Update profile page";
+}
+
+<section class="mt-4">
+    <form asp-action="Update" asp-controller="Profile" asp-anti-forgery="true" enctype="multipart/form-data">
+        <input hidden asp-for="OldFirstName"/>
+        <input hidden asp-for="OldLastName"/>
+        <input hidden asp-for="CurrentAvatar"/>
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                    <div class="card bg-dark h-100">
+                        <div class="card-body">
+                            <div class="account-settings">
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                        <div class="mt-5">
+                                            <vc:base-string-image width="96" image-data="@Model.CurrentAvatar"/>
+                                        </div>
+                                    </div>
+                                    <h5 class="user-name">@Model.OldFirstName @Model.OldLastName</h5>
+                                    <h6 class="user-email">@User.Identity!.Name</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div class="card bg-dark h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="text-white mt-2">Personal Details</h6>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="FirstName" class="text-white-50 mb-2">Update first name</label><br/>
+                                        <input type="text" asp-for="FirstName" class="form-control placeholder-glow"
+                                               value="@(Model.OldFirstName == Model.FirstName ? "" : Model.FirstName)"
+                                               placeholder="@Model.OldFirstName"/>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4  col-12">
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="text-white-50 mb-2">Update last name</label><br/>
+                                        <input type="text" asp-for="LastName" class="form-control"
+                                               value="@(Model.LastName == Model.OldLastName ? "" : Model.LastName)"
+                                               placeholder="@Model.OldLastName"/>
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4  col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Avatar" class="text-white-50 mb-2">Update avatar</label><br/>
+                                        <input type="file" name="Avatar" class="text-white" placeholder="Choose avatar">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="text-primary text-white">Passwords</h6>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="OldPassword" class="text-white-50 mb-2">Enter old password</label><br/>
+                                        <input type="password" class="form-control" asp-for="OldPassword"/>
+                                        <span asp-validation-for="OldPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="NewPassword" class="text-white-50 mb-2">Enter new password</label><br/>
+                                        <input type="password" class="form-control" asp-for="NewPassword"/>
+                                        <span asp-validation-for="NewPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="NewPasswordConfirm" class="text-white-50 mb-2">Confirm new password</label><br/>
+                                        <input type="password" class="form-control" asp-for="NewPasswordConfirm"/>
+                                        <span asp-validation-for="NewPasswordConfirm" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <h5 class="h5 text-danger">@Model?.ErrorMessage</h5>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <a asp-action="Details" asp-controller="Profile" class="btn btn-secondary">
+                                        Cancel
+                                    </a>
+                                    <button class="btn btn-primary" type="submit">Save Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/account_update.css" asp-append-version="true"/>
+}

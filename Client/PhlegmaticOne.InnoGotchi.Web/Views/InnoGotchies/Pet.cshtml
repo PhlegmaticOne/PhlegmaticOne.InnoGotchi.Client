@@ -1,0 +1,84 @@
+﻿@model DetailedInnoGotchiViewModel
+@{
+    ViewData["Title"] = "InnoGotchi";
+}
+
+<div class="container">
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml", Model.Name);
+    <div class="row" style="justify-content: center">
+        <div class="col-lg-3 col-md-6">
+            @await Html.PartialAsync("~/Views/_Partial_Views/Shared/ImageFromComponents.cshtml", Model.Components)
+        </div>
+
+        <div class="col-lg-9 bg-dark pet-info text-white">
+
+            <div class="row pt-2">
+                @if (Model.IsNewBorn)
+                {
+                    <h4 class="h4 text-center">@(Model.Name) is <vc:inno-gotchi-status status="newborn"/></h4>
+                }
+                else if (Model.IsDead)
+                {
+                    <h4 class="h4 text-center">@(Model.Name) is <vc:inno-gotchi-status status="dead"/>. Lived: @(Model.DeadSince - Model.LiveSince)</h4>
+                }
+                else
+                {
+                    <h4 class="h4 text-center">@(Model.Name) is <vc:inno-gotchi-status status="alive"/></h4>
+                }
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="my-3 h3">Vital signs</h3>
+                    <div>
+                        <h6 class="h6">Hunger level: <vc:inno-gotchi-status status="@Model.HungerLevel"/></h6>
+                        <h6 class="h6">Thirsty level: <vc:inno-gotchi-status status="@Model.ThirstyLevel" /></h6>
+                        <h6 class="h6">Age: @Model.Age</h6>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="my-3 h3">Information</h3>
+                    <div>
+                        <h6 class="h6">Happiness days count: @Model.HappinessDaysCount</h6>
+                        <h6 class="h6">Created at: @Model.LiveSince</h6>
+                        <h6 class="h6">Last feed time: @Model.LastFeedTime</h6>
+                        <h6 class="h6">Last drink time: @Model.LastDrinkTime</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <div class="col-6 text-center">
+                    @await Html.PartialAsync("~/Views/_Partial_Views/InnoGotchies/InnoGotchiActionButton.cshtml", new InnoGotchiActionViewModel
+                    {
+                        ActionText = "Feed me",
+                        ActionName = "Feed",
+                        IsDisabled = Model.IsFeedingAllowable == false,
+                        InnoGotchiId = Model.Id
+                    })
+                </div>
+
+                <div class="col-6 text-center">
+                    @await Html.PartialAsync("~/Views/_Partial_Views/InnoGotchies/InnoGotchiActionButton.cshtml", new InnoGotchiActionViewModel
+                    {
+                        ActionText = "Give a drink",
+                        ActionName = "Drink",
+                        IsDisabled = Model.IsDrinkingAllowable == false,
+                        InnoGotchiId = Model.Id
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center my-4" style="justify-content: center">
+        <div class="col-6">
+            <a asp-controller="Farm" asp-action="My" class="btn btn-outline-light btn-dark">Back to farm</a>
+        </div>
+    </div>
+</div>
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/pet.css" asp-append-version="true"/>
+}

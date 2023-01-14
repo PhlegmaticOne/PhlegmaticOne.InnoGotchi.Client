@@ -1,0 +1,37 @@
+﻿@model DetailedFarmViewModel
+@{
+    Layout = "_Column_Layout";
+    ViewData["Title"] = "My farm";
+}
+
+@if (Model.InnoGotchies.Count == 0)
+{
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml", "Create you first InnoGotchi at Constructor page")
+}
+else
+{
+    @await Html.PartialAsync("~/Views/_Partial_Views/Shared/PageTitle.cshtml", Model.Name)
+
+    @await Html.PartialAsync("~/Views/_Partial_Views/InnoGotchies/InnoGotchiCardsList.cshtml", Model.InnoGotchies, ViewData)
+}
+
+@section ColumnContent
+{
+    <div class="mt-3" id="preview_statistics"></div>
+
+    <div class="mt-3">
+        @await Html.PartialAsync("~/Views/_Partial_Views/Profiles/ProfilesSearchMenu.cshtml")
+    </div>
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/farm_details.css" asp-append-version="true"/>
+}
+
+@section Scripts
+{
+    <script src="~/js/my_farm.js" asp-append-version="true"></script>
+    <script src="~/js/collaborations.js" asp-append-version="true"></script>
+    <script src="~/js/preview_statistics.js" asp-append-version="true"></script>
+}
